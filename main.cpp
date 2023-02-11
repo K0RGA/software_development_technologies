@@ -7,6 +7,7 @@ using namespace std;
 
 // Задание 1
 // Опишите параметризованную функцию сортировки вставкой.
+
 template<class T>
 vector<T> insertionSort(vector<T> arr) {
     vector<T> array = arr;
