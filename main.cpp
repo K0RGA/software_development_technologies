@@ -1,37 +1,38 @@
 #include <iostream>
-#include<array>
 #include <vector>
-#include "Stack.h"
+#include <algorithm>
 
 using namespace std;
-
 // Задание 1
-// Опишите параметризованную функцию сортировки вставкой.
-template<class T>
-vector<T> insertionSort(vector<T> arr) {
-    vector<T> array = arr;
-    int n = array.size();
-    for (int i = 1; i < n; i++)
-        for (int j = i; j > 0 && array[j - 1] > array[j]; j--)
-            swap(array[j - 1], array[j]);
-    return array;
+// Выполнить задачу в соответствии с номером варианта. При выполнении задачи использовать лямбда-выражения (max – 3 балла).
+// Задание 2
+// Повторить выполнение своего варианта задания с использованием классов (max – 4 балла).
+// Задание 3
+// Повторить выполнение своего варианта задания, но с использованием параметризованных классов (max – 5 баллов).
+
+// Дан целочисленный список. Используя функцию transform умножить каждый элемент списка,
+// являющийся степенью двойки, на масштабирующий коэффициент.
+
+bool isExpOf2(int n) {
+    return (n & (n - 1)) == 0;
 }
 
-// Вспомогательная функция для печати векторов
-template<class T>
-void print(vector<T> arr) {
-    for (auto i: arr) cout << i << " ";
-}
+template<typename T>
+class Transform {
+    vector<T> &arr;
+public:
+    explicit Transform(vector<T> &arr) : arr(arr) {};
+
+    void operator()(int coefficient) {
+        for_each(arr.begin(), arr.end(), [coefficient](int &number) { if (isExpOf2(number)) number *= coefficient; });
+    }
+};
 
 int main() {
-    //Задание 1
-    vector<int> arr = {1, 9, 2, 4, 8, 3};
-    print(insertionSort(arr));
-
-    //Задание 2
-    //Опишите оператор [] для разработанного класса-массива, обработайте ошибку выхода за границы массива.
-    Stack stack;
-    cout << stack[10];
+    vector<int> arr = {1, 2, 3, 4};
+    (Transform(arr)(5)); // дурдом, но без скобочек не работает
+    for (auto i: arr) cout << i << " ";
+    cout << endl;
 }
 
 
